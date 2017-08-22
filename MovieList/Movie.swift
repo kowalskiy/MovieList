@@ -8,6 +8,38 @@
 
 import UIKit
 
-class Movie: NSObject {
+struct Movie {
+    
+    let title: String
+    let posterPath: String
+    let overview: String
+    let releaseDate: String
+    var voteCount: NSNumber?
+}
 
+extension Movie {
+    
+    struct Key {
+        static let titleKey = "title"
+        static let posterPathKey = "poster_path"
+        static let overviewKey = "overview"
+        static let releaseDateKey = "release_date"
+        static let votesKey = "vote_count"
+    }
+    
+    init?(json: [String: AnyObject]) {
+        
+        guard let title = json[Key.titleKey] as? String,
+            let posterPath = json[Key.posterPathKey] as? String,
+            let overview = json[Key.overviewKey] as? String,
+            let releaseDate = json[Key.releaseDateKey] as? String
+            else {
+                return nil
+        }
+        self.title = title
+        self.posterPath = posterPath
+        self.overview = overview
+        self.releaseDate = releaseDate
+        self.voteCount = json[Key.votesKey] as? NSNumber
+    }
 }
