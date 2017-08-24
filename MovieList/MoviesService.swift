@@ -58,7 +58,7 @@ class Movies {
             
             DispatchQueue.global().async {
                 if let json = response.result.value {
-                     print("JSON: \(json)")
+                    print("JSON: \(json)")
                     
                     if let result = response.result.value as? Dictionary <String, AnyObject> {
                         if let list = result["results"] as? [Dictionary<String,AnyObject>] {
@@ -69,7 +69,7 @@ class Movies {
                                 guard let voteCount = obj["vote_count"] else { return }
                                 guard let posterPath = obj["poster_path"] else { return }
                                 
-                                movies.append(Movies(title: title as! String, overview: overview as! String, releaseDate: releaseDate as! String,voteCount: voteCount as! NSNumber, posterPath: posterPath as! String))
+                                movies.append(Movies(title: title as! String, overview: overview as! String, releaseDate: releaseDate as! String,voteCount: voteCount as! NSNumber, posterPath: (posterPath as! String)))
                                 self._movieList = movies
                             }
                         }

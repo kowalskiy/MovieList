@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ViewController: UITableViewController {
     
@@ -24,7 +25,7 @@ class ViewController: UITableViewController {
         
         //
         Movies.downloadMovieList {
-                        
+        
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -39,7 +40,8 @@ class ViewController: UITableViewController {
             let movie = Movies.movieList[indexPath.row]
             //this path is provided by the API documentation
             let imagePath = "https://image.tmdb.org/t/p/w342" + movie.posterPath!
-            cell.movieImageView.loadImageUsingCacheWithURLString(imagePath, placeHolder: nil) { (_) in }
+            let url = URL(string: String(imagePath))
+            cell.movieImageView.kf.setImage(with: url)
             cell.movieTitleLabel.text = movie.title.uppercased()
             cell.dateLabel.text = "Release Date: " + movie.releaseDate
             cell.descriptionLabel.text =  movie.overview
